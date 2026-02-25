@@ -1,0 +1,47 @@
+<view class="container">
+  <view class="card">
+    <view class="title">新建任务</view>
+    <view class="field">
+      <view class="label">任务名称</view>
+      <input
+        placeholder="例如：给宠物喂食"
+        value="{{form.title}}"
+        bindinput="onTitleInput"
+      />
+    </view>
+
+    <view class="field">
+      <view class="label">任务范围</view>
+      <picker mode="selector" range="{{scopeOptions}}" range-key="label" value="{{scopeIndex}}" bindchange="onScopeChange">
+        <view class="picker-value">{{scopeOptions[scopeIndex].label}}</view>
+      </picker>
+    </view>
+
+    <view class="field">
+      <view class="label">基础分值</view>
+      <input type="number" value="{{form.points}}" bindinput="onPointsInput" />
+    </view>
+
+    <view class="field">
+      <view class="label">重复规则</view>
+      <picker mode="selector" range="{{repeatOptions}}" range-key="label" value="{{repeatIndex}}" bindchange="onRepeatChange">
+        <view class="picker-value">{{repeatOptions[repeatIndex].label}}</view>
+      </picker>
+    </view>
+
+    <view class="field" wx:if="{{form.scope === 'pair'}}">
+      <view class="label">共同任务加成分值（bonusPoints）</view>
+      <input type="number" value="{{form.bonusPoints}}" bindinput="onBonusInput" />
+    </view>
+
+    <view class="field" wx:if="{{form.repeatRule === 'once'}}">
+      <view class="label">执行日期（默认今天）</view>
+      <view>{{form.onceDateKey}}</view>
+    </view>
+  </view>
+
+  <view class="btn-row">
+    <button type="primary" bindtap="onSubmit" loading="{{loading}}">保存</button>
+    <button bindtap="backToTasks">返回</button>
+  </view>
+</view>

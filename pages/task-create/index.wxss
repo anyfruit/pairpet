@@ -1,0 +1,21 @@
+.field {
+  margin-bottom: 16rpx;
+}
+
+.label {
+  color: #666;
+  margin-bottom: 8rpx;
+}
+
+input {
+  border: 1rpx solid #ddd;
+  border-radius: 8rpx;
+  padding: 12rpx;
+}
+
+.picker-value {
+  border: 1rpx solid #ddd;
+  border-radius: 8rpx;
+  padding: 12rpx;
+  background: #fff;
+}

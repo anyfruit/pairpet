@@ -1,0 +1,54 @@
+<view class="container">
+  <view class="card">
+    <view class="title">任务列表</view>
+    <view class="subtitle">日期：{{dateKey}}</view>
+    <view wx:if="{{loading}}">加载中...</view>
+    <view wx:if="{{errorMessage}}" class="error-text">{{errorMessage}}</view>
+    <view wx:if="{{!loading && empty}}">今天还没有任务，去创建一个吧。</view>
+  </view>
+
+  <view class="card" wx:if="{{!loading && sharedTasks.length > 0}}">
+    <view class="title">共同任务</view>
+    <block wx:for="{{sharedTasks}}" wx:key="_id">
+      <view class="task-item">
+        <view class="task-title">{{item.title}}</view>
+        <view class="task-meta">基础分：{{item.points}} / 加成：{{item.bonusPoints || 0}}</view>
+        <view class="task-status">我：{{item.selfDone ? "已完成" : "未完成"}} | TA：{{item.partnerDone ? "已完成" : "未完成"}}</view>
+        <button
+          size="mini"
+          bindtap="onCompleteTask"
+          data-task-id="{{item._id}}"
+          loading="{{submittingTaskId === item._id}}"
+          disabled="{{item.selfDone || loading || submittingTaskId === item._id}}"
+        >
+          {{item.selfDone ? "今日已打卡" : "打卡完成"}}
+        </button>
+      </view>
+    </block>
+  </view>
+
+  <view class="card" wx:if="{{!loading && personalTasks.length > 0}}">
+    <view class="title">我的任务</view>
+    <block wx:for="{{personalTasks}}" wx:key="_id">
+      <view class="task-item">
+        <view class="task-title">{{item.title}}</view>
+        <view class="task-meta">分值：{{item.points}}</view>
+        <view class="task-status">今日状态：{{item.selfDone ? "已完成" : "未完成"}}</view>
+        <button
+          size="mini"
+          bindtap="onCompleteTask"
+          data-task-id="{{item._id}}"
+          loading="{{submittingTaskId === item._id}}"
+          disabled="{{item.selfDone || loading || submittingTaskId === item._id}}"
+        >
+          {{item.selfDone ? "今日已打卡" : "打卡完成"}}
+        </button>
+      </view>
+    </block>
+  </view>
+
+  <view class="btn-row">
+    <button type="primary" bindtap="goCreate">新建任务</button>
+    <button bindtap="goHome">返回首页</button>
+  </view>
+</view>

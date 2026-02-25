@@ -1,0 +1,59 @@
+<view class="container">
+  <view class="card">
+    <view class="title">你好，{{user ? user.nickname : "微信用户"}}</view>
+    <view class="subtitle">今日：{{dateKey}}</view>
+    <view wx:if="{{loading}}">正在加载首页数据...</view>
+    <view wx:if="{{errorMessage}}" class="error-text">{{errorMessage}}</view>
+  </view>
+
+  <view wx:if="{{!loading && !hasBound}}" class="card">
+    <view class="title">还没有绑定搭子</view>
+    <view class="subtitle">完成绑定后可以共同养宠、共享任务进度。</view>
+    <button type="primary" bindtap="goPair">去绑定页</button>
+  </view>
+
+  <view wx:if="{{!loading && hasBound && pet}}" class="card pet-card">
+    <view class="title">🐾 {{pet.name}}</view>
+    <view class="pet-line">品种：{{pet.species || "dog"}} | 等级：Lv.{{pet.level}}</view>
+    <view class="pet-line">阶段：{{petStageText}} | 心情：{{petMoodText}}</view>
+    <view class="pet-line">经验：{{expCurrentInLevel}} / {{expNeededInLevel}}</view>
+    <view class="progress-track">
+      <view class="progress-bar" style="width: {{petExpProgress}}%;"></view>
+    </view>
+  </view>
+
+  <view wx:if="{{!loading && hasBound && pair}}" class="card">
+    <view class="title">亲密值总分</view>
+    <view class="score">{{pair.intimacyScore}}</view>
+    <view wx:if="{{recentIntimacyChange}}" class="subtitle">
+      最近变动：+{{recentIntimacyChange.points}}（{{recentIntimacyChange.sourceType}}）
+    </view>
+  </view>
+
+  <view wx:if="{{!loading && hasBound}}" class="card">
+    <view class="title">今日进度</view>
+    <view>{{todaySummary.completed}} / {{todaySummary.total}} 已完成</view>
+    <view class="subtitle">共同任务：{{todaySummary.sharedCompleted}} / {{todaySummary.sharedTotal}}</view>
+  </view>
+
+  <view wx:if="{{!loading && hasBound && todaySummary.sharedTasks.length > 0}}" class="card">
+    <view class="title">今日共同任务</view>
+    <block wx:for="{{todaySummary.sharedTasks}}" wx:key="taskId">
+      <view class="task-line">
+        <view>{{item.title}}</view>
+        <view class="task-status">我 {{item.selfDone ? "✅" : "⬜"}} / TA {{item.partnerDone ? "✅" : "⬜"}}</view>
+      </view>
+    </block>
+  </view>
+
+  <view wx:if="{{!loading && hasBound && todaySummary.total === 0}}" class="card">
+    <view class="title">今天还没有任务</view>
+    <view class="subtitle">先创建一个任务开启养宠循环吧。</view>
+    <button type="primary" bindtap="goTaskCreate">去新建任务</button>
+  </view>
+
+  <view class="btn-row" wx:if="{{!loading && hasBound}}">
+    <button size="mini" type="primary" bindtap="goTasks">去任务页</button>
+    <button size="mini" bindtap="goTaskCreate">新建任务</button>
+  </view>
+</view>

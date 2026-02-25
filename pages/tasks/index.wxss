@@ -1,0 +1,27 @@
+.task-item {
+  border-bottom: 1rpx solid #eee;
+  padding: 14rpx 0;
+}
+
+.task-title {
+  font-weight: 600;
+}
+
+.task-meta {
+  color: #555;
+  margin-top: 6rpx;
+}
+
+.task-status {
+  color: #666;
+  font-size: 24rpx;
+  margin: 6rpx 0 10rpx;
+}
+
+.error-text {
+  color: #d93025;
+}
+
+.task-item button {
+  margin-top: 6rpx;
+}

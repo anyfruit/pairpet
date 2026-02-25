@@ -1,0 +1,33 @@
+<view class="container">
+  <view class="card">
+    <view class="title">绑定状态</view>
+    <view>当前状态：{{statusText}}</view>
+    <view wx:if="{{user}}">当前用户：{{user.nickname}}</view>
+    <view wx:if="{{pair}}">Pair ID：{{pair._id}}</view>
+    <view wx:if="{{pair && pair.inviteCode}}">我的邀请码：{{pair.inviteCode}}</view>
+    <view wx:if="{{pet}}">宠物：{{pet.name}} Lv.{{pet.level}} / 亲密值 {{pet.intimacy}}</view>
+    <view class="btn-row">
+      <button bindtap="onGenerateCode" loading="{{loading}}" disabled="{{statusText === '已绑定'}}">
+        生成我的邀请码
+      </button>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="subtitle">输入对方邀请码</view>
+    <input
+      placeholder="请输入邀请码"
+      value="{{inputCode}}"
+      bindinput="onCodeInput"
+    />
+    <view class="btn-row">
+      <button type="primary" bindtap="onBindPair" loading="{{loading}}">绑定</button>
+      <button bindtap="goHome">回首页</button>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="subtitle">开发辅助（可随时删除）</view>
+    <button bindtap="onDevSetupSoloPair" loading="{{loading}}">开发：单人建立可测试绑定</button>
+  </view>
+</view>

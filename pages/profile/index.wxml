@@ -1,0 +1,17 @@
+<view class="container">
+  <view class="card">
+    <view class="title">个人信息（Mock）</view>
+    <view>昵称：{{user.nickname}}</view>
+    <view>亲密值：{{user.intimacy}}</view>
+  </view>
+
+  <view class="card">
+    <view class="title">宠物档案</view>
+    <view>{{pet.avatarEmoji}} {{pet.name}} / Lv.{{pet.level}}</view>
+    <view>绑定状态：{{pair.status}}</view>
+  </view>
+
+  <view class="btn-row">
+    <button bindtap="goPair">去绑定页</button>
+  </view>
+</view>
